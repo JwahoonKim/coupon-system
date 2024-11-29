@@ -36,4 +36,9 @@ public class CouponIssueRequestService {
         );
         log.info("쿠폰 발급 완료 - userId: {}, couponId: {}", requestDto.userId(), requestDto.couponId());
     }
+
+    public void issueRequestV4(CouponIssueRequestDto requestDto) {
+        couponIssueService.issueWithLock(requestDto.couponId(), requestDto.userId());
+        log.info("쿠폰 발급 완료 - userId: {}, couponId: {}", requestDto.userId(), requestDto.couponId());
+    }
 }

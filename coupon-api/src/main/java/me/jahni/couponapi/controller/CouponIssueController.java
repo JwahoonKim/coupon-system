@@ -34,4 +34,11 @@ public class CouponIssueController {
         couponIssueRequestService.issueRequestV3(body);
         return new CouponIssueResponseDto(true, null);
     }
+
+    // DB Lock 으로 동시성 문제 해결
+    @PostMapping("/v4/issue")
+    public CouponIssueResponseDto issueV4(@RequestBody CouponIssueRequestDto body) {
+        couponIssueRequestService.issueRequestV4(body);
+        return new CouponIssueResponseDto(true, null);
+    }
 }

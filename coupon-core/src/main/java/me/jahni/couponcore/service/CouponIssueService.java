@@ -33,6 +33,19 @@ public class CouponIssueService {
                         "Coupon not exist. couponId: " + couponId));
     }
 
+    @Transactional
+    public void issueWithLock(Long couponId, Long userId) {
+        Coupon coupon = findCouponWithLock(couponId);
+        coupon.issue();
+        saveCouponIssue(couponId, userId);
+    }
+
+    @Transactional(readOnly = true)
+    public Coupon findCouponWithLock(Long couponId) {
+        return couponJpaRepository.findCouponWithLock(couponId)
+                .orElseThrow(() -> new CouponIssueException(ErrorCode.COUPON_NOT_EXIST,
+                        "Coupon not exist. couponId: " + couponId));
+    }
 
     @Transactional
     public CouponIssue saveCouponIssue(Long couponId, Long userId) {
