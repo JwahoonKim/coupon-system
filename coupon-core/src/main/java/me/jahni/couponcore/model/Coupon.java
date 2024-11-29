@@ -6,8 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.jahni.couponcore.exception.CouponIssueException;
+import me.jahni.couponcore.exception.ErrorCode;
 
 import java.time.LocalDateTime;
+
+import static me.jahni.couponcore.exception.ErrorCode.INVALID_COUPON_ISSUE_DATE;
+import static me.jahni.couponcore.exception.ErrorCode.INVALID_COUPON_ISSUE_QUANTITY;
 
 @Builder
 @NoArgsConstructor
@@ -41,4 +46,46 @@ public class Coupon extends BaseTimeEntity {
 
     @Column(nullable = false)
     private LocalDateTime dateIssueEnd;
+
+    public boolean availableIssueQuantity() {
+        if (totalQuantity == null) {
+            return true;
+        }
+        return totalQuantity > issuedQuantity;
+    }
+
+    public boolean availableIssueDate() {
+        LocalDateTime now = LocalDateTime.now();
+        return dateIssueStart.isBefore(now) && dateIssueEnd.isAfter(now);
+    }
+
+    public void issue() {
+        validateIssueConditions();
+        issuedQuantity++;
+    }
+
+    private void validateIssueConditions() {
+        validateIssueQuantityCondition();
+        validateIssueDateCondition();
+    }
+
+    private void validateIssueDateCondition() {
+        if (!availableIssueDate()) {
+            throw new CouponIssueException(
+                    INVALID_COUPON_ISSUE_DATE,
+                    "쿠폰이 발급 가능한 기간이 아닙니다. dateIssueStart: %s, dateIssueEnd: %s"
+                            .formatted(dateIssueStart, dateIssueEnd)
+            );
+        }
+    }
+
+    private void validateIssueQuantityCondition() {
+        if (!availableIssueQuantity()) {
+            throw new CouponIssueException(
+                    INVALID_COUPON_ISSUE_QUANTITY,
+                    "쿠폰이 발급 가능한 수량이 아닙니다. totalQuantity: %d, issuedQuantity: %d"
+                            .formatted(totalQuantity, issuedQuantity)
+            );
+        }
+    }
 }
