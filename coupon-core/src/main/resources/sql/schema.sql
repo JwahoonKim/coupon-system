@@ -9,8 +9,8 @@ CREATE TABLE `coupon`.`coupons`
     `min_available_amount` INT          NOT NULL COMMENT '최소 사용 금액',
     `date_issue_start`     datetime(6) NOT NULL COMMENT '발급 시작 일시',
     `date_issue_end`       datetime(6) NOT NULL COMMENT '발급 종료 일시',
-    `date_created`         datetime(6) NOT NULL COMMENT '생성 일시',
-    `date_updated`         datetime(6) NOT NULL COMMENT '수정 일시',
+    `created_at`         datetime(6) NOT NULL COMMENT '생성 일시',
+    `updated_at`         datetime(6) NOT NULL COMMENT '수정 일시',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -23,8 +23,8 @@ CREATE TABLE `coupon`.`coupon_issues`
     `user_id`      BIGINT(20) NOT NULL COMMENT '유저 ID',
     `date_issued`  datetime(6) NOT NULL COMMENT '발급 일시',
     `date_used`    datetime(6) NULL COMMENT '사용 일시',
-    `date_created` datetime(6) NOT NULL COMMENT '생성 일시',
-    `date_updated` datetime(6) NOT NULL COMMENT '수정 일시',
+    `created_at` datetime(6) NOT NULL COMMENT '생성 일시',
+    `updated_at` datetime(6) NOT NULL COMMENT '수정 일시',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
