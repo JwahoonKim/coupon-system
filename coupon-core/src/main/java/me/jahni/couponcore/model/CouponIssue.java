@@ -27,7 +27,6 @@ public class CouponIssue {
     @Column(nullable = false)
     private Long userId;
 
-    @Column(nullable = false)
     @CreatedDate
     private LocalDateTime dateIssued;
 

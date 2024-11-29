@@ -2,12 +2,8 @@ package me.jahni.couponcore.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import me.jahni.couponcore.exception.CouponIssueException;
-import me.jahni.couponcore.exception.ErrorCode;
 
 import java.time.LocalDateTime;
 
@@ -27,8 +23,11 @@ public class Coupon extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private CouponType type;
+    private CouponType couponType;
 
     private Integer totalQuantity;
 
