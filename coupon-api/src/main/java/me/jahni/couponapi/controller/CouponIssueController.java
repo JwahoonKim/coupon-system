@@ -14,10 +14,17 @@ public class CouponIssueController {
 
     private final CouponIssueRequestService couponIssueRequestService;
 
+    // 동시성 문제 발생
     @PostMapping("/v1/issue")
     public CouponIssueResponseDto issueV1(@RequestBody CouponIssueRequestDto body) {
         couponIssueRequestService.issueRequestV1(body);
         return new CouponIssueResponseDto(true, null);
     }
 
+    // synchronized 키워드로 동시성 문제 해결
+    @PostMapping("/v2/issue")
+    public CouponIssueResponseDto issueV2(@RequestBody CouponIssueRequestDto body) {
+        couponIssueRequestService.issueRequestV2(body);
+        return new CouponIssueResponseDto(true, null);
+    }
 }

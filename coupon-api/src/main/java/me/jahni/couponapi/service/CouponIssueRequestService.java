@@ -20,4 +20,10 @@ public class CouponIssueRequestService {
         log.info("쿠폰 발급 완료 - userId: {}, couponId: {}", requestDto.userId(), requestDto.couponId());
     }
 
+    public void issueRequestV2(CouponIssueRequestDto requestDto) {
+        synchronized (this) {
+            couponIssueService.issue(requestDto.couponId(), requestDto.userId());
+        }
+        log.info("쿠폰 발급 완료 - userId: {}, couponId: {}", requestDto.userId(), requestDto.couponId());
+    }
 }
