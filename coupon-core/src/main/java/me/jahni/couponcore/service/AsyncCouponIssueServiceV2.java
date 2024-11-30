@@ -18,7 +18,7 @@ public class AsyncCouponIssueServiceV2 {
     private final CouponCacheService couponCacheService;
 
     public void issue(long couponId, long userId) {
-        Coupon coupon = couponCacheService.getCouponCache(couponId).toDomain();
+        Coupon coupon = couponCacheService.getCouponLocalCache(couponId).toDomain();
         validateIssueDateCondition(coupon);
         issueRequest(couponId, userId, coupon.getTotalQuantity());
 
