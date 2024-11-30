@@ -18,8 +18,8 @@
 ## 새로 알게된 점
 - 레디스 List를 큐로 사용해 비동기적으로 메시지를 처리하는 방법
 - locust를 이용한 부하테스트 방법
-- @Cachable과 AopContext.currentProxy()를 활용한 로컬 + 리모트 캐시 갱신 방법 [(내부 호출에서도 AOP 적용되게끔 하기)](https://github.com/JwahoonKim/coupon-system/blob/3efed5c130e34adef03950837ccfbbae948c5d97/coupon-core/src/main/java/me/jahni/couponcore/service/CouponCacheService.java#L25)
-- @Transcactional 안에서 락을 잡을때는 조심해야한다는 것
+- @Cacheable과 AopContext.currentProxy()를 활용한 로컬 + 리모트 캐시 갱신 방법 [(내부 호출에서도 AOP 적용되게끔 하기)](https://github.com/JwahoonKim/coupon-system/blob/3efed5c130e34adef03950837ccfbbae948c5d97/coupon-core/src/main/java/me/jahni/couponcore/service/CouponCacheService.java#L25)
+- @Transcactional 안에서 락을 잡을때는 조심해야한다는 것
   1. tx 시작
   2. lock 획득
   3. logic 실행
