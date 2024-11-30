@@ -41,4 +41,18 @@ public class CouponIssueController {
         couponIssueRequestService.issueRequestV4(body);
         return new CouponIssueResponseDto(true, null);
     }
+
+    // 비동기 & redis lock 으로 동시성 문제 해결
+    @PostMapping("/v5/issue")
+    public CouponIssueResponseDto issueV5(@RequestBody CouponIssueRequestDto body) {
+        couponIssueRequestService.issueRequestV5(body);
+        return new CouponIssueResponseDto(true, null);
+    }
+
+    // 비동기 & redis script 로 동시성 문제 해결
+    @PostMapping("/v6/issue")
+    public CouponIssueResponseDto issueV6(@RequestBody CouponIssueRequestDto body) {
+        couponIssueRequestService.issueRequestV6(body);
+        return new CouponIssueResponseDto(true, null);
+    }
 }
